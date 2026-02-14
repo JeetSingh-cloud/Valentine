@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Roshni ❤️</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    font-family:'Comic Sans MS', cursive;
+    text-align:center;
+    background: radial-gradient(circle at top, #ffdde1, #ee9ca7);
+}
+
+/* Romantic Glow */
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 70%);
+    animation: glow 4s infinite alternate;
+}
+@keyframes glow{
+    from{opacity:0.6;}
+    to{opacity:1;}
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    color:#ff4d6d;
+    animation: float 6s linear infinite;
+}
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+.container{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    z-index:2;
+}
+
+button{
+    padding:12px 20px;
+    font-size:18px;
+    margin:10px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yesBtn{
+    background:#ff4d6d;
+    color:white;
+    box-shadow:0 0 15px #ff4d6d;
+}
+
+#noBtn{
+    background:gray;
+    color:white;
+    position:relative;
+}
+
+.hidden{display:none;}
+
+#gallery img{
+    width:120px;
+    margin:8px;
+    border-radius:10px;
+}
+
+/* Star Lock Screen */
+#passwordScreen{
+    background:black;
+    height:100vh;
+    width:100vw;
+    position:absolute;
+    top:0;
+    left:0;
+    overflow:hidden;
+}
+
+canvas{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#countdown{
+    margin-top:15px;
+    font-size:18px;
+    color:white;
+}
+.slideshow{
+    position:relative;
+    width:90%;
+    max-width:400px;
+    margin:20px auto;
+    height:300px
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:15px;
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.slide.active{
+    opacity:1;
+}
+#sadTeddy{
+    margin-top:15px;
+    animation: shake 0.5s infinite alternate;
+}
+
+@keyframes shake{
+    from{transform:translateX(-5px);}
+    to{transform:translateX(5px);}
+}
+
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="Valentine.mp3" type="audio/mp3">
+</audio>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+    <canvas id="stars"></canvas>
+    <div class="container">
+        <h1 style="color:white;text-shadow:0 0 20px pink;">Roshni ✨</h1>
+        <h2 style="color:white;">Enter Password 💌</h2>
+        <input type="password" id="passwordInput">
+        <br><br>
+        <button onclick="checkPassword()">Enter</button>
+        <div id="countdown"></div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container hidden" id="mainContent">
+    <img src="https://i.imgur.com/7yUvePI.png" width="180">
+    <h2>Roshni 💖 Will you be my Valentine?</h2>
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No 😢</button>
+    <div id="crying" class="hidden">
+        <img src="child-concept-of-sorrow-teddy-bear-sitting-leaning-against-the-wall-of-the-house-alone-look-sad-and-disappointed-free-photo.webp" width="120">
+    </div>
+</div>
+
+<!-- LOVE MESSAGE -->
+<div class="container hidden" id="loveMessage">
+    <h1 style="color:red;">I LOVE YOU ❤️</h1>
+    <h2>You mean the world to me 🌍</h2>
+
+    <div class="slideshow">
+        <img class="slide active" src="WhatsApp Image 2026-02-13 at 23.42.22.jpeg">
+        <img class="slide" src="WhatsApp Image 2026-02-13 at 23.42.23.jpeg">
+        <img class="slide" src="h.jpeg">
+        <img class="slide" src="jnfo.jpeg">
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+// PASSWORD
+function checkPassword(){
+    if(document.getElementById("passwordInput").value === "Roshni"){
+        document.getElementById("passwordScreen").style.display="none";
+        document.getElementById("mainContent").classList.remove("hidden");
+        document.getElementById("bgMusic").play();
+    } else{
+        alert("Wrong password 😢");
+    }
+}
+
+// FLOATING HEARTS
+setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💗";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*20+15+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},6000);
+},300);
+
+// NO BUTTON ESCAPE
+const noBtn=document.getElementById("noBtn");
+const crying=document.getElementById("crying");
+const yesBtn=document.getElementById("yesBtn");
+let yesSize=18;
+const sadTeddy = document.getElementById("sadTeddy");
+
+noBtn.addEventListener("mouseover",()=>{
+    noBtn.style.position="absolute";
+    noBtn.style.left=Math.random()*80+"%";
+    noBtn.style.top=Math.random()*80+"%";
+
+    sadTeddy.classList.remove("hidden");
+
+    yesSize+=5;
+    yesBtn.style.fontSize=yesSize+"px";
+});
+
+
+
+
+// YES CLICK
+yesBtn.addEventListener("click",()=>{
+    document.getElementById("mainContent").classList.add("hidden");
+    document.getElementById("loveMessage").classList.remove("hidden");
+
+    confetti({particleCount:200,spread:100});
+    startSlideshow();
+
+
+    let duration=3*1000;
+    let end=Date.now()+duration;
+    (function frame(){
+        confetti({particleCount:5,angle:60,spread:55,origin:{x:0}});
+        confetti({particleCount:5,angle:120,spread:55,origin:{x:1}});
+        if(Date.now()<end){requestAnimationFrame(frame);}
+    })();
+});
+
+// IMAGE UPLOAD
+document.getElementById("imageUpload").addEventListener("change",function(event){
+    const gallery=document.getElementById("gallery");
+    gallery.innerHTML="";
+    Array.from(event.target.files).forEach(file=>{
+        const reader=new FileReader();
+        reader.onload=function(e){
+            const img=document.createElement("img");
+            img.src=e.target.result;
+            gallery.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
+
+// STARRY SKY
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+for(let i=0;i<200;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        radius:Math.random()*2
+    });
+}
+
+function drawStars(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="white";
+    stars.forEach(star=>{
+        ctx.beginPath();
+        ctx.arc(star.x,star.y,star.radius,0,Math.PI*2);
+        ctx.fill();
+    });
+}
+
+function shootingStar(){
+    let x=Math.random()*canvas.width;
+    let y=0;
+    let len=200;
+    let speed=8;
+
+    let interval=setInterval(()=>{
+        ctx.strokeStyle="white";
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.lineTo(x+len,y+len);
+        ctx.stroke();
+        x+=speed;
+        y+=speed;
+        if(y>canvas.height){clearInterval(interval);}
+    },30);
+}
+
+setInterval(drawStars,50);
+setInterval(shootingStar,4000);
+// SLIDESHOW
+function startSlideshow(){
+    let slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    if(slides.length === 0) return;
+
+    setInterval(() => {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add("active");
+    }, 3000);
+}
+
+
+setInterval(showNextSlide, 3000);
+
+
+</script>
+</body>
+</html>
